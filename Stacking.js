@@ -8,16 +8,16 @@ let heightc = 20;
 function setup() {
   createCanvas(960, 720);
   bg=loadImage('ttt.jpg');
-  coineg1 = new Coin(285,510, widthc, heightc, 1);
-  coineg2 = new Coin(385,510, widthc, heightc, 2);
-  coineg3 = new Coin(485,510, widthc, heightc, 3);
-  coineg4 = new Coin(585,510, widthc, heightc, 4);
-  coineg5 = new Coin(685,510, widthc, heightc, 5);
-  coineg6 = new Coin(285,580, widthc, heightc, 6);
-  coineg7 = new Coin(385,580, widthc, heightc, 7);
-  coineg8 = new Coin(485,580, widthc, heightc, 8);
-  coineg9 = new Coin(585,580, widthc, heightc, 9);
-  coineg10 = new Coin(685,580, widthc, heightc, 10);
+  coineg1 = new Coin(280,510, widthc, heightc, 1);
+  coineg2 = new Coin(380,510, widthc, heightc, 2);
+  coineg3 = new Coin(480,510, widthc, heightc, 3);
+  coineg4 = new Coin(580,510, widthc, heightc, 4);
+  coineg5 = new Coin(680,510, widthc, heightc, 5);
+  coineg6 = new Coin(280,580, widthc, heightc, 6);
+  coineg7 = new Coin(380,580, widthc, heightc, 7);
+  coineg8 = new Coin(480,580, widthc, heightc, 8);
+  coineg9 = new Coin(580,580, widthc, heightc, 9);
+  coineg10 = new Coin(680,580, widthc, heightc, 10);
 }
 
 function setLineDash(list) {
@@ -36,7 +36,7 @@ class Coin{
   displayCoin(){
     stroke("yellow");
     strokeWeight(2);
-    setLineDash([0,0])
+    setLineDash([0,0]);
 
     fill("yellow");
      ellipse(this.x, this.y + this.height, this.width, this.height)
@@ -54,7 +54,6 @@ class Coin{
 
 function draw() {
   background(bg);
-  
   coineg1.displayCoin();
   coineg2.displayCoin();
   coineg3.displayCoin();
@@ -74,7 +73,8 @@ function draw() {
   rect(366.5, 442, 240, 22);
   
   // have to fix after function
-  strokeWeight(3.5);
+
+  strokeWeight(4.5);
   stroke("red");
   setLineDash([10, 10, 10, 10]);
   line(445.5, 440, 445.5, 145, 10, 10);
