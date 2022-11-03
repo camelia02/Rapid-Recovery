@@ -85,10 +85,10 @@ function draw() {
   noStroke();
   textStyle(BOLD);
   textSize(37);
-  stroke("blue");
+  stroke("black");
   strokeWeight(6);
   setLineDash([0,0])
   fill("white");
-  text('PLACE 1 ON THE COUNTER TO BEGIN', 162, 105);
+  text('PLACE COIN 1 ON THE COUNTER TO BEGIN', 97, 105);
   noStroke();
 }
