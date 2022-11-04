@@ -3,7 +3,7 @@ let y = 0;
 
 let coineg;
 let widthc = 80;
-let heightc = 20;
+let heightc = 20;
 
 function setup() {
   createCanvas(960, 720);
@@ -30,7 +30,7 @@ class Coin{
     this.y = y;
     this.width = w;
     this.height = h;
-    this.num = n;
+    this.num = rNum(0,10);
   }
   
   displayCoin(){
@@ -47,9 +47,30 @@ class Coin{
     
     textSize(15);
     fill("black");
-    text(this.num, this.x-4, this.y +25.5);  
+    text(this.num, this.x-4, this.y +25.5);  
     
   }
+}
+
+let numberList = [1,2,3,4,5,6,7,8,9,10];
+
+function rNum(min, max){
+  let tmp=0;
+  for (let i=0; i<numberList.length; i++) {
+      let a = (int) (Math.random() * numberList.length-1);
+
+      tmp = numberList[a];
+      numberList[a] = numberList[i];
+      numberList[i] = tmp;
+    
+      if(numberList[i] == numberList[a]){
+        tmp = numberList[a];
+        numberList[a] = numberList[i];
+        numberList[i] = tmp;
+      }
+      
+  } 
+  return tmp;
 }
 
 function draw() {
