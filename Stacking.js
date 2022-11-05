@@ -57,13 +57,13 @@ let numberList = [1,2,3,4,5,6,7,8,9,10];
 function rNum(min, max){
   let tmp=0;
   for (let i=0; i<numberList.length; i++) {
-      let a = (int) (Math.random() * numberList.length-1);
+      let a = (int) (Math.random() * numberList.length);
 
       tmp = numberList[a];
       numberList[a] = numberList[i];
       numberList[i] = tmp;
     
-      if(numberList[i] == numberList[a]){
+      if(numberList[i-1] == numberList[i]){
         tmp = numberList[a];
         numberList[a] = numberList[i];
         numberList[i] = tmp;
