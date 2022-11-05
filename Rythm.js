@@ -4,75 +4,153 @@ let width = 960;
 let height = 720;
 let score = 0;
 
-let coin
-
-
 //Circle
 let inDia = 80;
 let outDia = 160;
 let rate = 1;
 let balls=[];
+let numBalls = 31;
+let index = 0;
 let font = 40;
-let ms = 3000;
+let ms = 1200;
 let inButton = false;
 let onBeat = false;
 let missedBeat = false;
+let st = false;
+let gm = false;
 
 //Background
 let bg;
 let b;
+let sickBeat;
+let pl;
+let cg;
 
 function preload(){
   //add bg, noise feedback, and music
   bg = loadImage('bgg1.png');
+  sickBeat = loadSound('fse100.mp3');
+  pl = new Beat(480,360, inDia, inDia, "Start", balls);
+  cg = loadSound('accurate.wav');
+
 }
 
 function setup() {
   
   createCanvas(width, height);
-  createArray();
+ 
   
+}
+
+function draw(){
+    image(bg,0,0);   
+    let counter = 0;
+  
+    pl.display();
+    overCircle(pl);
+      if(mouseIsPressed && inButton){
+      st = true; 
+      pl.disappear();
+      }
+  
+      if(gm){
+        playing();
+      }
+      
+      
+  achievement();
+
 }
 
 //after n second add new value to array
 //dynamic array
 function createArray(){
-  balls[0] = new Beat(160,160, inDia, outDia, 1);
-  setTimeout(() => {balls[1] = new Beat(320,320, inDia, outDia, 2);} ,ms);
-  setTimeout(() => {balls[2] = new Beat(400,210, inDia, outDia, 3);} ,2*ms);
-  setTimeout(() => {balls[3] = new Beat(560,370, inDia, outDia, 4);} ,3*ms);
-  setTimeout(() => {balls[4] = new Beat(200,440, inDia, outDia, 5);} ,4*ms);
-  setTimeout(() => {balls[5] = new Beat(540,200, inDia, outDia, 6);} ,5*ms);
-  setTimeout(() => {balls[6] = new Beat(700,180, inDia, outDia, 7);} ,6*ms);
-  setTimeout(() => {balls[7] = new Beat(460,530, inDia, outDia, 8);} ,7*ms);
-  setTimeout(() => {balls[8] = new Beat(720,400, inDia, outDia, 9);} ,8*ms);
-  setTimeout(() => {balls[9] = new Beat(270,200, inDia, outDia, 10);} ,9*ms);
+  for(let i = 0; i<numBalls; i++){
+    if(i > 0){
+    createBeat(i);
+    }
+  else{
+     balls[i] = new Beat(int(random(80, 880)),int(random(80, 540)), inDia, outDia, i+1, balls);
+  }
+  }
 }
 
-function draw(){
-    image(bg,0,0);
+function createBeat(n){
+   setTimeout(() =>{
+    let cordinate = randCor();
+    balls[n] = new Beat(cordinate[0],cordinate[1], inDia, outDia, n+1, balls);
+   }, (n+1)*ms);
+}
+
+function randCor(){
+  let x;
+  let y;
+  var dx;
+  var dy;
+  var distance;
   
-    balls.forEach(ball => {
+  for(let i = 0; i < balls.length; i++){  
+    for(let j = 0; j < balls.length; j++){
+      do{
+      x = int(random(80, 880));
+      y  = int(random(80, 540));
+      dx = abs(balls[i].x - x);
+      dy = abs(balls[j].y - y);
+      distance = sqrt(sq(dx) + sq(dy));
+      }
+      while(distance < 180);
+      
+    }
+  }
+      let coordinate = [x,y];
+      return coordinate;
+    }
+     
+function playing(){
+  let delay = 1000;
+  balls.forEach(ball => {
       ball.display();
       ball.move();
-      overCircle(ball);
-      accurate(ball);
-      missed(ball);
-  });   
-
-  achievement();
+    setTimeout(() => {
+      ball.disappear();
+    }, 4*delay);
+  });
 }
+
+function mouseClicked(){
   
-function mouseClicked() {
-    if(inButton){
-        if(onBeat){
-        Areward();
-        Breward();
-      }
-        else if(missedBeat){
-        Breward();
+  if(st){
+    createArray();
+    sickBeat.play();
+    st = false;
+    gm = true;
+  }
+  
+  balls.forEach(ball => {
+    
+    if(ball.locked == false){
+    overCircle(ball);
+    accurate(ball);
+    missed(ball);
+    
+      if(inButton){
+        
+          if(onBeat){
+          Areward();
+          Breward();
+          //cg.play();
         }
+          else if(missedBeat){
+          Breward();
+          }
+        
+        ball.disappear();
+        ball.locked = true;
+        
+      }
     }
+  });
+  
     
 }
 
@@ -109,12 +187,10 @@ function missed(b){
 
 function Areward(){
     score += 3;
-    console.log("button click +3");
 }
 
 function Breward(){
     score += 2;
-  console.log("button click +2");
 }
 
 
@@ -122,17 +198,23 @@ function achievement(){
     fill("black");
     rect(width/2 - 100,height - 100,200,60);
     fill(255);
+    textSize(font);
     text("Score: " + score, width/2,height - 60);
+    
+    
+  
   }
 
 
 class Beat {
-    constructor(xin, yin, din, doa, count) {
+    constructor(xin, yin, din, doa, count, oin) {
     this.x = xin;
     this.y = yin;
     this.diameter = din;
     this.ring = doa;
     this.count = count;
+    this.others = oin;
+    this.locked = false;
   }
      
     move(){
@@ -140,17 +222,23 @@ class Beat {
       this.ring -= rate;
       }
     }
-  //one ellipse
-  //rectangle
+  
   
     display() {
+      
+  
     //Outer circle
     noFill();
     strokeWeight(5);
     stroke(204, 0, 204);
     ellipse(this.x, this.y, this.ring - rate, this.ring - rate);
     //Inner circle
+    if(this.ring <= 1.1*this.diameter && this.ring >= 0.9*this.diameter){
+    fill("rgba(228,107,228,0.83)");
+    }
+    else{
     fill("purple");
+    }
     stroke(204, 0, 204);
     ellipse(this.x, this.y, this.diameter, this.diameter);
     //Number
@@ -159,6 +247,13 @@ class Beat {
     textAlign(CENTER);
     textSize(font);
     text(this.count, this.x - 1, this.y + 15);
-    
   }
+  
+    disappear(){
+      this.x = "";
+      this.y = "";
+      this.ring = "";
+      this.diameter = "";
+      this.count = "";
+    }
 }
