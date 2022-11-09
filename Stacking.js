@@ -1,26 +1,41 @@
 let bg;
 let y = 0;
+let coinStorage = [];
+let coinNum = 10;
 
-let coineg;
 let widthc = 80;
 let heightc = 20;
+let numc = 0;
+
+const points = [];
+let dragPoint = null;
+
+const numPoints = 5;
+const dragRadius = 20;
 
 function setup() {
+  // background size
   createCanvas(960, 720);
+  // background
   bg=loadImage('ttt.jpg');
-  coineg1 = new Coin(280,510, widthc, heightc, 1);
-  coineg2 = new Coin(380,510, widthc, heightc, 2);
-  coineg3 = new Coin(480,510, widthc, heightc, 3);
-  coineg4 = new Coin(580,510, widthc, heightc, 4);
-  coineg5 = new Coin(680,510, widthc, heightc, 5);
-  coineg6 = new Coin(280,580, widthc, heightc, 6);
-  coineg7 = new Coin(380,580, widthc, heightc, 7);
-  coineg8 = new Coin(480,580, widthc, heightc, 8);
-  coineg9 = new Coin(580,580, widthc, heightc, 9);
-  coineg10 = new Coin(680,580, widthc, heightc, 10);
+  
+  coineg1 = new Coin(280,510, widthc, heightc, numc);
+  coineg2 = new Coin(380,510, widthc, heightc, numc);
+  coineg3 = new Coin(480,510, widthc, heightc, numc);
+  coineg4 = new Coin(580,510, widthc, heightc, numc);
+  coineg5 = new Coin(680,510, widthc, heightc, numc);
+  coineg6 = new Coin(280,580, widthc, heightc, numc);
+  coineg7 = new Coin(380,580, widthc, heightc, numc);
+  coineg8 = new Coin(480,580, widthc, heightc, numc);
+  coineg9 = new Coin(580,580, widthc, heightc, numc);
+  coineg10 = new Coin(680,580, widthc, heightc, numc);
+  
+  coinStorage = [coineg1, coineg2, coineg3, coineg4, coineg5, coineg6, coineg7, coineg8, coineg9, coineg10];
+  
 }
 
 function setLineDash(list) {
+  // dashline
   drawingContext.setLineDash(list);
 }
 
@@ -30,16 +45,16 @@ class Coin{
     this.y = y;
     this.width = w;
     this.height = h;
-    this.num = rNum(0,10);
+    this.num = rNum(0, 10);
   }
-  
+  // coin display
   displayCoin(){
     stroke("yellow");
     strokeWeight(2);
     setLineDash([0,0]);
 
     fill("yellow");
-     ellipse(this.x, this.y + this.height, this.width, this.height)
+    ellipse(this.x, this.y + this.height, this.width, this.height)
     fill("yellow");
     rect(this.x - this.width/2, this.y + this.height/20, this.width, this.height);
     fill("gold");
@@ -48,44 +63,46 @@ class Coin{
     textSize(15);
     fill("black");
     text(this.num, this.x-4, this.y +25.5);  
-    
   }
 }
 
-let numberList = [1,2,3,4,5,6,7,8,9,10];
-
-function rNum(min, max){
-  let tmp=0;
-  for (let i=0; i<numberList.length; i++) {
-      let a = (int) (Math.random() * numberList.length);
-
-      tmp = numberList[a];
-      numberList[a] = numberList[i];
-      numberList[i] = tmp;
-    
-      if(numberList[i-1] == numberList[i]){
-        tmp = numberList[a];
-        numberList[a] = numberList[i];
-        numberList[i] = tmp;
-      }
-      
-  } 
-  return tmp;
+// coin random number
+let numberList = [];
+function rNum(min, max) {
+    let i = 0;
+    let n;
+    for (let i = 0; i < 10; i++) {
+        n = Math.floor(Math.random() * 10) + 1;
+        if (! sameNum(n)) {
+            numberList.push(n);
+            return n;
+            break;
+        }
+        else{
+          i--;
+        }
+    }
 }
+
+function sameNum(n) {
+    return numberList.find((e) => (e === n));
+}
+
+//mouse function
+// function mousPressed(){
+//   for(let i=0; i<10; i++){
+//     if(coinStorage[i].
+//   }
+// }
 
 function draw() {
   background(bg);
-  coineg1.displayCoin();
-  coineg2.displayCoin();
-  coineg3.displayCoin();
-  coineg4.displayCoin();
-  coineg5.displayCoin();
-  coineg6.displayCoin();
-  coineg7.displayCoin();
-  coineg8.displayCoin();
-  coineg9.displayCoin();
-  coineg10.displayCoin();
-
+  // display 10 coin
+  for (let i = 0; i < 10; i++) {
+    coinStorage[i].displayCoin();
+  }
+  
+  // square - platform
   let squarecolor = color("#9d9ff5");
   fill(squarecolor);
   stroke("black");
@@ -93,8 +110,7 @@ function draw() {
   setLineDash([0,0])
   rect(366.5, 442, 240, 22);
   
-  // have to fix after function
-
+  // dashline
   strokeWeight(4.5);
   stroke("red");
   setLineDash([10, 10, 10, 10]);
@@ -103,6 +119,7 @@ function draw() {
   setLineDash([10, 10, 10, 10]);
   line(525.5, 440, 525.5, 145, 10, 10);
   
+  // text
   noStroke();
   textStyle(BOLD);
   textSize(37);
