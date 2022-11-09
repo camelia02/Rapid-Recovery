@@ -28,6 +28,10 @@ function setup() {
   button3.style('font-size', '30px');
   button3.position(590, 525);
   
+   
+  button1.mousePressed(Rhythm);
+  button2.mousePressed(Tracing);
+  button3.mousePressed(Stacking);
   
 }
 
@@ -35,4 +39,16 @@ function draw() {
   background(255,0,0);
   
   image(pic,0,0)
+}
+
+function Rhythm(){
+  window.open("https://editor.p5js.org/camelia02/sketches/Bo16jSo_Z/");
+}
+
+function Tracing(){
+  window.open("https://editor.p5js.org/camelia02/sketches/98A_LKVnm");
+}
+
+function Stacking(){
+  window.open("https://editor.p5js.org/kgong12/sketches/vx6mXN2r3");
 }
