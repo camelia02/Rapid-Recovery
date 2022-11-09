@@ -17,20 +17,27 @@ function setup() {
   // background size
   createCanvas(960, 720);
   // background
-  bg=loadImage('ttt.jpg');
+  bg=loadImage('ttt.png');
   
-  coineg1 = new Coin(280,510, widthc, heightc, numc);
-  coineg2 = new Coin(380,510, widthc, heightc, numc);
-  coineg3 = new Coin(480,510, widthc, heightc, numc);
-  coineg4 = new Coin(580,510, widthc, heightc, numc);
-  coineg5 = new Coin(680,510, widthc, heightc, numc);
-  coineg6 = new Coin(280,580, widthc, heightc, numc);
-  coineg7 = new Coin(380,580, widthc, heightc, numc);
-  coineg8 = new Coin(480,580, widthc, heightc, numc);
-  coineg9 = new Coin(580,580, widthc, heightc, numc);
-  coineg10 = new Coin(680,580, widthc, heightc, numc);
+  coineg1 = new Coin(280,485, widthc, heightc, numc);
+  coineg2 = new Coin(380,485, widthc, heightc, numc);
+  coineg3 = new Coin(480,485, widthc, heightc, numc);
+  coineg4 = new Coin(580,485, widthc, heightc, numc);
+  coineg5 = new Coin(680,485, widthc, heightc, numc);
+  coineg6 = new Coin(280,565, widthc, heightc, numc);
+  coineg7 = new Coin(380,565, widthc, heightc, numc);
+  coineg8 = new Coin(480,565, widthc, heightc, numc);
+  coineg9 = new Coin(580,565, widthc, heightc, numc);
+  coineg10 = new Coin(680,565, widthc, heightc, numc);
   
   coinStorage = [coineg1, coineg2, coineg3, coineg4, coineg5, coineg6, coineg7, coineg8, coineg9, coineg10];
+  
+  button = createButton('home');
+  button.position(960);
+  button.position(900, 10);
+  
+  information = createButton('information');
+  information.position(868, 35);
   
 }
 
@@ -62,6 +69,7 @@ class Coin{
     
     textSize(15);
     fill("black");
+    textStyle(BOLD);
     text(this.num, this.x-4, this.y +25.5);  
   }
 }
@@ -89,11 +97,13 @@ function sameNum(n) {
 }
 
 //mouse function
-// function mousPressed(){
-//   for(let i=0; i<10; i++){
-//     if(coinStorage[i].
-//   }
-// }
+
+//mouse drag function
+
+//score function
+function score(){
+  
+}
 
 function draw() {
   background(bg);
@@ -108,25 +118,14 @@ function draw() {
   stroke("black");
   strokeWeight(3.5);
   setLineDash([0,0])
-  rect(366.5, 442, 240, 22);
+  rect(366.5, 415, 240, 22);
   
   // dashline
   strokeWeight(4.5);
   stroke("red");
   setLineDash([10, 10, 10, 10]);
-  line(445.5, 440, 445.5, 145, 10, 10);
+  line(445.5, 415, 445.5, 120, 10, 10);
   
   setLineDash([10, 10, 10, 10]);
-  line(525.5, 440, 525.5, 145, 10, 10);
-  
-  // text
-  noStroke();
-  textStyle(BOLD);
-  textSize(37);
-  stroke("black");
-  strokeWeight(6);
-  setLineDash([0,0])
-  fill("white");
-  text('PLACE COIN 1 ON THE COUNTER TO BEGIN', 97, 105);
-  noStroke();
+  line(525.5, 415, 525.5, 120, 10, 10);
 }
