@@ -3,6 +3,7 @@
 let width = 960;
 let height = 720;
 let score = 0;
+let prevScore = 0;
 
 //Circle
 let inDia = 80;
@@ -11,7 +12,7 @@ let rate = 1;
 let balls=[];
 let numBalls = 31;
 let index = 0;
-let font = 40;
+let font = 35;
 let ms = 1200;
 let inButton = false;
 let onBeat = false;
@@ -25,6 +26,8 @@ let b;
 let sickBeat;
 let pl;
 let cg;
+let home;
+let information;
 
 function preload(){
   //add bg, noise feedback, and music
@@ -38,8 +41,12 @@ function preload(){
 function setup() {
   
   createCanvas(width, height);
- 
-  
+  home = createButton('home');
+  home.position(900, 10);
+  home.mousePressed(gotolink_act1);  
+  information = createButton('information');
+  information.position(868, 35);
+  // link below
 }
 
 function draw(){
@@ -138,7 +145,7 @@ function mouseClicked(){
           if(onBeat){
           Areward();
           Breward();
-          //cg.play();
+          cg.play();
         }
           else if(missedBeat){
           Breward();
@@ -195,14 +202,22 @@ function Breward(){
 
 
 function achievement(){
-    fill("black");
-    rect(width/2 - 100,height - 100,200,60);
+    fill("rgb(33,0,45)");
+    rect(width/2 - 135,height - 100,270,60);
     fill(255);
+    
     textSize(font);
-    text("Score: " + score, width/2,height - 60);
-    
-    
-  
+    noStroke();
+    fill("gold");
+    push();
+    translate(width * 0.4 - 10, height * 0.905);
+    scale(0.35);
+    rotate(0.95);
+    star(0  , 0, 30, 70);
+    pop();
+    fill("white");
+    text("     SCORE:  " + score, width/2,height - 60);
+    prevScore = score;
   }
 
 
@@ -255,5 +270,27 @@ class Beat {
       this.ring = "";
       this.diameter = "";
       this.count = "";
+      //add some splash art
+      
     }
+}
+
+function star(x, y, radius1, radius2) {
+  let angle = TWO_PI / 5;
+  let halfAngle = angle / 2.0;
+  //rotate(PI/4);
+  beginShape();
+  for (let a = 0; a < TWO_PI; a += angle) {
+    let sx = x + cos(a) * radius2;
+    let sy = y + sin(a) * radius2;
+    vertex(sx, sy);
+    sx = x + cos(a + halfAngle) * radius1;
+    sy = y + sin(a + halfAngle) * radius1;
+    vertex(sx, sy);
+  }
+  endShape(CLOSE);
+}
+
+function gotolink_act1(){
+  window.open('https://editor.p5js.org/manas__1404/sketches/48Gid6pnb')
 }
