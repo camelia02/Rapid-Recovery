@@ -20,13 +20,13 @@ function setup() {
   button3.style('font-size', '30px');
   button3.position(700, 325);
   
-  button3 = createButton('Information');
-  button3.style('font-size', '30px');
-  button3.position(650, 425);
+  button4 = createButton('Information');
+  button4.style('font-size', '30px');
+  button4.position(650, 425);
   
-  button3 = createButton('EXIT');
-  button3.style('font-size', '30px');
-  button3.position(590, 525);
+  button5 = createButton('Exit');
+  button5.style('font-size', '30px');
+  button5.position(590, 525);
   
    
   button1.mousePressed(Rhythm);
