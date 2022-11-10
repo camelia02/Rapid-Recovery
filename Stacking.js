@@ -7,12 +7,6 @@ let widthc = 80;
 let heightc = 20;
 let numc = 0;
 
-const points = [];
-let dragPoint = null;
-
-const numPoints = 5;
-const dragRadius = 20;
-
 function setup() {
   // background size
   createCanvas(960, 720);
@@ -32,13 +26,15 @@ function setup() {
   
   coinStorage = [coineg1, coineg2, coineg3, coineg4, coineg5, coineg6, coineg7, coineg8, coineg9, coineg10];
   
-  button = createButton('home');
-  button.position(960);
-  button.position(900, 10);
+  home = createButton('home');
+  home.position(960);
+  home.position(900, 10);
   
   information = createButton('information');
   information.position(868, 35);
   
+  // retry = createButton('retry');
+  // retry.position(908, 60);
 }
 
 function setLineDash(list) {
@@ -54,7 +50,7 @@ class Coin{
     this.height = h;
     this.num = rNum(0, 10);
   }
-  // coin display
+  // coin display setting
   displayCoin(){
     stroke("yellow");
     strokeWeight(2);
@@ -91,18 +87,28 @@ function rNum(min, max) {
         }
     }
 }
-
 function sameNum(n) {
     return numberList.find((e) => (e === n));
 }
 
-//mouse function
+// mouse function
+function mouseClick(){
 
-//mouse drag function
+}
 
-//score function
+// mouse drag function
+function mouseDrag(){
+  
+}
+
+// score function
 function score(){
   
+}
+
+// coin color
+function coinColor(){
+
 }
 
 function draw() {
@@ -113,19 +119,19 @@ function draw() {
   }
   
   // square - platform
-  let squarecolor = color("#9d9ff5");
+  let squarecolor = color("skyblue");
   fill(squarecolor);
-  stroke("black");
-  strokeWeight(3.5);
+  stroke("green");
+  strokeWeight(5.5);
   setLineDash([0,0])
   rect(366.5, 415, 240, 22);
   
   // dashline
-  strokeWeight(4.5);
+  strokeWeight(5.5);
   stroke("red");
   setLineDash([10, 10, 10, 10]);
-  line(445.5, 415, 445.5, 120, 10, 10);
+  line(445.5, 412, 445.5, 120, 10, 10);
   
   setLineDash([10, 10, 10, 10]);
-  line(525.5, 415, 525.5, 120, 10, 10);
+  line(525.5, 412, 525.5, 120, 10, 10);
 }
