@@ -1,5 +1,4 @@
 let bg;
-let y = 0;
 let coinStorage = [];
 let coinNum = 10;
 
@@ -7,28 +6,46 @@ let widthc = 80;
 let heightc = 20;
 let numc = 0;
 
+let coinX;
+let coinY;
+let coinMove=false;
+
 function setup() {
   // background size
   createCanvas(960, 720);
   // background
   bg=loadImage('ttt.png');
   
-  coineg1 = new Coin(280,485, widthc, heightc, numc);
-  coineg2 = new Coin(380,485, widthc, heightc, numc);
-  coineg3 = new Coin(480,485, widthc, heightc, numc);
-  coineg4 = new Coin(580,485, widthc, heightc, numc);
-  coineg5 = new Coin(680,485, widthc, heightc, numc);
-  coineg6 = new Coin(280,565, widthc, heightc, numc);
-  coineg7 = new Coin(380,565, widthc, heightc, numc);
-  coineg8 = new Coin(480,565, widthc, heightc, numc);
-  coineg9 = new Coin(580,565, widthc, heightc, numc);
-  coineg10 = new Coin(680,565, widthc, heightc, numc);
+  coinX = 280;
+  coinY = 485;
+  coineg1 = new Coin(coinX,coinY, widthc, heightc, numc);
+  coinX += 100;
+  coineg2 = new Coin(coinX,coinY, widthc, heightc, numc);
+  coinX += 100;
+  coineg3 = new Coin(coinX,coinY, widthc, heightc, numc);
+  coinX += 100;
+  coineg4 = new Coin(coinX,coinY, widthc, heightc, numc);
+  coinX += 100;
+  coineg5 = new Coin(coinX,coinY, widthc, heightc, numc);
+  
+  coinX = 280;
+  coinY = 565;
+  coineg6 = new Coin(coinX,coinY, widthc, heightc, numc);
+  coinX += 100;
+  coineg7 = new Coin(coinX,coinY, widthc, heightc, numc);
+  coinX += 100;
+  coineg8 = new Coin(coinX,coinY, widthc, heightc, numc);
+  coinX += 100;
+  coineg9 = new Coin(coinX,coinY, widthc, heightc, numc);
+  coinX += 100;
+  coineg10 = new Coin(coinX,coinY, widthc, heightc, numc);
   
   coinStorage = [coineg1, coineg2, coineg3, coineg4, coineg5, coineg6, coineg7, coineg8, coineg9, coineg10];
   
   home = createButton('home');
   home.position(960);
   home.position(900, 10);
+  home.mousePressed(gotolink_act1);  
   
   information = createButton('information');
   information.position(868, 35);
@@ -73,7 +90,6 @@ class Coin{
 // coin random number
 let numberList = [];
 function rNum(min, max) {
-    let i = 0;
     let n;
     for (let i = 0; i < 10; i++) {
         n = Math.floor(Math.random() * 10) + 1;
@@ -92,23 +108,31 @@ function sameNum(n) {
 }
 
 // mouse function
-function mouseClick(){
-
+function mousePressed(){
+  let d = dist(mouseX, mouseY, coinX, coinY);
+  
+  if(d>coinStorage){
+    coinMove=true;
+  }
+  else{
+    coinMove=false;  
+  }
 }
 
-// mouse drag function
+function mouseReleased(){
+  coinMove = false;
+}
+
 function mouseDrag(){
-  
+  if(coinMove){
+    coinX = mouseX;
+    coinY = mouseY;
+  }
 }
 
-// score function
-function score(){
-  
-}
-
-// coin color
-function coinColor(){
-
+// link
+function gotolink_act1(){
+  window.open('https://editor.p5js.org/manas__1404/sketches/48Gid6pnb')
 }
 
 function draw() {
@@ -121,7 +145,7 @@ function draw() {
   // square - platform
   let squarecolor = color("skyblue");
   fill(squarecolor);
-  stroke("green");
+  stroke("black");
   strokeWeight(5.5);
   setLineDash([0,0])
   rect(366.5, 415, 240, 22);
