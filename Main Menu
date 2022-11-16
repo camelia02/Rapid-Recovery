@@ -42,13 +42,13 @@ function draw() {
 }
 
 function Rhythm(){
-  window.open("https://editor.p5js.org/camelia02/sketches/Bo16jSo_Z/");
+  window.open("https://editor.p5js.org/camelia02/full/Bo16jSo_Z");
 }
 
 function Tracing(){
-  window.open("https://editor.p5js.org/camelia02/sketches/98A_LKVnm");
+  window.open("https://editor.p5js.org/camelia02/full/98A_LKVnm");
 }
 
 function Stacking(){
-  window.open("https://editor.p5js.org/kgong12/sketches/vx6mXN2r3");
+  window.open("https://editor.p5js.org/kgong12/full/vx6mXN2r3");
 }
