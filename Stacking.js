@@ -111,12 +111,16 @@ function sameNum(n) {
 function mousePressed(){
   let d = dist(mouseX, mouseY, coinX, coinY);
   
-  if(d>coinStorage){
-    coinMove=true;
-  }
-  else{
-    coinMove=false;  
-  }
+  coinStorage.forEach(coin => {
+    if(d>coinStorage){
+      coinMove=true;
+      return coinMove;
+    }
+    else{
+      coinMove=false;  
+      return coinMove;
+    }
+  });
 }
 
 function mouseReleased(){
@@ -135,7 +139,7 @@ function gotolink_act1(){
   window.open('https://editor.p5js.org/manas__1404/sketches/48Gid6pnb')
 }
 
-function draw() {
+function draw() {  
   background(bg);
   // display 10 coin
   for (let i = 0; i < 10; i++) {
