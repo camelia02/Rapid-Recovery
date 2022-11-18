@@ -50,8 +50,8 @@ function setup() {
   information = createButton('information');
   information.position(868, 35);
   
-  // retry = createButton('retry');
-  // retry.position(908, 60);
+  retry = createButton('retry');
+  retry.position(908, 60);
 }
 
 function setLineDash(list) {
@@ -103,35 +103,53 @@ function rNum(min, max) {
         }
     }
 }
+
 function sameNum(n) {
     return numberList.find((e) => (e === n));
 }
 
 // mouse function
-function mousePressed(){
-  let d = dist(mouseX, mouseY, coinX, coinY);
+// function mousePressed(){
+//   let d = dist(mouseX, mouseY, coinX, coinY);
   
-  coinStorage.forEach(coin => {
-    if(d>coinStorage){
-      coinMove=true;
-      return coinMove;
-    }
-    else{
-      coinMove=false;  
-      return coinMove;
-    }
-  });
-}
+//   coinStorage.forEach(coin => {
+//     if(d>100){
+//       coinMove=true;
+//       return coinMove;
+//     }
+//     else{
+//       coinMove=false;  
+//       return coinMove;
+//     }
+//   });
+// }
 
-function mouseReleased(){
-  coinMove = false;
-}
 
-function mouseDrag(){
-  if(coinMove){
-    coinX = mouseX;
-    coinY = mouseY;
-  }
+
+function mouseDragged(){
+  
+  // when user press
+  // to return the coin that is being, only the coin with the number that
+  // is pressed will move
+  // moving
+  
+  let index;
+  for(let i = 0; i < coinStorage.length; i++){
+
+  let d = dist(mouseX, mouseY, coinStorage[i].x, coinStorage[i].y);
+
+    if(d<20){
+      index= i;
+      // coinStorage[i].x = mouseX;
+      // coinStorage[i].y = mouseY;
+    }
+    
+    
+    }
+  
+  coinStorage[index].x = mouseX;
+  coinStorage[index].y = mouseY;
+  
 }
 
 // link
