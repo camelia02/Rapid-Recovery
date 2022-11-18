@@ -23,7 +23,6 @@ function setup() {
   home.mousePressed(gotolink_act1);  
   information = createButton('information');
   information.position(868, 35);
-  information.mousePressed(gotolink_info);
   retry = createButton('retry');
   retry.position(908, 60);
   retry.mousePressed(restart);
@@ -36,6 +35,7 @@ function draw() {
   //star
   stroke("black");
   stroke(1);
+  strokeWeight(1);
   push();
   noFill();
   translate(460, 360);
@@ -49,7 +49,7 @@ function draw() {
   if(attempt > 0){
  
   drawnLines.forEach(drawnLine => {
-     stroke(10);
+    strokeWeight(10);
     line(
       drawnLine.mouseX,
       drawnLine.mouseY,
@@ -59,6 +59,9 @@ function draw() {
   }
   
   console.log(attempt);
+  
+  score();
+  att();
 }
 
 function mouseReleased(){
@@ -86,8 +89,24 @@ function playing(){
   }
 }
 
-function scores(){
-  
+//score function
+function score(){
+  let scr = 0;
+  textSize(40);
+  fill("white");
+  stroke("green");
+  strokeWeight(8);
+  text(scr, 363, 693);
+}
+
+//Attempt function
+function att(){
+  let atp = 0;
+  textSize(40);
+  fill("white");
+  stroke("green");
+  strokeWeight(8);
+  text(atp, 663, 693);
 }
 
 function star(x, y, radius1, radius2) {
@@ -111,9 +130,5 @@ function setLineDash(list) {
 }
 
 function gotolink_act1(){
-  window.open('https://editor.p5js.org/manas__1404/full/48Gid6pnb')
-}
-
-function gotolink_info(){
-  window.open("https://editor.p5js.org/manas__1404/full/aXWsq0nJz")
+  window.open('https://editor.p5js.org/manas__1404/sketches/48Gid6pnb')
 }
