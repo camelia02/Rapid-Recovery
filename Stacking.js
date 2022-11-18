@@ -259,7 +259,7 @@ function textPlaceCoin(){
 
 //link
 function gotolink_act1(){
-  window.open('https://editor.p5js.org/manas__1404/sketches/48Gid6pnb')
+  window.open('https://editor.p5js.org/manas__1404/full/48Gid6pnb')
 }
 
 function gotolink_info(){
