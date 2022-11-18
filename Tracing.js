@@ -7,6 +7,7 @@ let attempt = 10;
 let locked = false;
 let image = [];
 
+//add circle,
 function restart(){
   attempt =11;
   score = 0;
@@ -22,15 +23,19 @@ function setup() {
   home.mousePressed(gotolink_act1);  
   information = createButton('information');
   information.position(868, 35);
+  information.mousePressed(gotolink_info);
   retry = createButton('retry');
   retry.position(908, 60);
   retry.mousePressed(restart);
+
 }
 
 function draw() {
   background(bg);
-  stroke("gray");
-  strokeWeight(1.5);
+  
+  //star
+  stroke("black");
+  stroke(1);
   push();
   noFill();
   translate(460, 360);
@@ -40,17 +45,17 @@ function draw() {
   star(0, 0, 30, 70);
   pop();
   
+  
   if(attempt > 0){
-    drawnLines.forEach(drawnLine => {
-      stroke("black");
-      strokeWeight(9);
-      line(
-        drawnLine.mouseX,
-        drawnLine.mouseY,
-        drawnLine.pmouseX,
-        drawnLine.pmouseY);
-    });
-    noStroke();
+ 
+  drawnLines.forEach(drawnLine => {
+     stroke(10);
+    line(
+      drawnLine.mouseX,
+      drawnLine.mouseY,
+      drawnLine.pmouseX,
+      drawnLine.pmouseY);
+  });
   }
   
   console.log(attempt);
@@ -63,7 +68,7 @@ function mouseReleased(){
 
 function mouseDragged() {
   if(mouseX > 210 && mouseX < 720 && mouseY > 60 && mouseY <660){
-    playing();
+  playing();
   }
   else{
     locked = true;
@@ -72,12 +77,12 @@ function mouseDragged() {
 
 function playing(){
   if(!locked){
-    drawnLines.push({
-      mouseX: mouseX,
-      mouseY: mouseY,
-      pmouseX: pmouseX,
-      pmouseY: pmouseY,
-    });
+   drawnLines.push({
+    mouseX: mouseX,
+    mouseY: mouseY,
+    pmouseX: pmouseX,
+    pmouseY: pmouseY,
+  });
   }
 }
 
@@ -106,5 +111,9 @@ function setLineDash(list) {
 }
 
 function gotolink_act1(){
-  window.open('https://editor.p5js.org/manas__1404/sketches/48Gid6pnb')
+  window.open('https://editor.p5js.org/manas__1404/full/48Gid6pnb')
+}
+
+function gotolink_info(){
+  window.open("https://editor.p5js.org/manas__1404/full/aXWsq0nJz")
 }
