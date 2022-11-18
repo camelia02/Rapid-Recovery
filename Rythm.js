@@ -43,15 +43,15 @@ function setup() {
   createCanvas(width, height);
   home = createButton('home');
   home.position(900, 10);
-  home.mousePressed(gotolink_act1);  
+  home.mousePressed(gotolink_home);  
   information = createButton('information');
   information.position(868, 35);
   // link below
+  information.mousePressed(gotolink_info);
 }
 
 function draw(){
     image(bg,0,0);   
-    let counter = 0;
   
     pl.display();
     overCircle(pl);
@@ -111,7 +111,7 @@ function randCor(){
   }
       let coordinate = [x,y];
       return coordinate;
-    }
+}
      
 function playing(){
   let delay = 1000;
@@ -211,12 +211,17 @@ function achievement(){
     fill("gold");
     push();
     translate(width * 0.4 - 10, height * 0.905);
+    if(prevScore == score){
     scale(0.35);
+    }
+    if(prevScore < score){
+    scale(0.5);
+    }
     rotate(0.95);
-    star(0  , 0, 30, 70);
+    star(0, 0, 30, 70);
     pop();
     fill("white");
-    text("     SCORE:  " + score, width/2,height - 60);
+    text("      SCORE: " + score, width/2,height - 60);
     prevScore = score;
   }
 
@@ -240,8 +245,6 @@ class Beat {
   
   
     display() {
-      
-  
     //Outer circle
     noFill();
     strokeWeight(5);
@@ -291,6 +294,10 @@ function star(x, y, radius1, radius2) {
   endShape(CLOSE);
 }
 
-function gotolink_act1(){
+function gotolink_home(){
   window.open('https://editor.p5js.org/manas__1404/sketches/48Gid6pnb')
+}
+
+function gotolink_info(){
+  window.open('https://editor.p5js.org/manas__1404/full/guxVqJXIh')
 }
