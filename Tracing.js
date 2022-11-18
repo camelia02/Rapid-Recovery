@@ -4,6 +4,7 @@ let information;
 let retry;
 let drawnLines = [];
 let attempt = 10;
+let score = 0;
 let locked = false;
 let image = [];
 
@@ -18,11 +19,15 @@ function restart(){
 function setup() {
   createCanvas(960, 720);
   bg = loadImage('tracing.jpg');
+  
   home = createButton('home');
   home.position(900, 10);
-  home.mousePressed(gotolink_act1);  
+  home.mousePressed(gotolink_menu);  
+  
   information = createButton('information');
   information.position(868, 35);
+  information.mousePressed(gotolink_info);
+  
   retry = createButton('retry');
   retry.position(908, 60);
   retry.mousePressed(restart);
@@ -57,10 +62,8 @@ function draw() {
       drawnLine.pmouseY);
   });
   }
-  
-  console.log(attempt);
-  
-  score();
+
+  Score();
   att();
 }
 
@@ -90,7 +93,7 @@ function playing(){
 }
 
 //score function
-function score(){
+function Score(){
   let scr = 0;
   textSize(40);
   fill("white");
@@ -129,6 +132,14 @@ function setLineDash(list) {
   drawingContext.setLineDash(list);
 }
 
-function gotolink_act1(){
+function gotolink_retry(){
+  window.open("https://editor.p5js.org/camelia02/full/98A_LKVnm");
+}
+
+function gotolink_menu(){
   window.open('https://editor.p5js.org/manas__1404/sketches/48Gid6pnb')
+}
+
+function gotolink_info(){
+  window.open("https://editor.p5js.org/manas__1404/full/aXWsq0nJz")
 }
