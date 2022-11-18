@@ -2,10 +2,12 @@ var pic;
 
 function preload(){
   pic=loadImage("Main Menu.png");
+  
 }
 
+
 function setup() {
-  createCanvas(920,720);
+  createCanvas(960,720);
   background(52, 161, 235);
   button1 = createButton('Rhythm');
   button1.style('font-size', '30px');
@@ -32,17 +34,26 @@ function setup() {
   button1.mousePressed(Rhythm);
   button2.mousePressed(Tracing);
   button3.mousePressed(Stacking);
+  button4.mousePressed(Info);
+  button5.mousePressed(exit);
   
+}
+
+function exit(){
+  idk.close();
 }
 
 function draw() {
   background(255,0,0);
+  image(pic,0,0);
   
-  image(pic,0,0)
 }
 
-function Rhythm(){
-  window.open("https://editor.p5js.org/camelia02/full/Bo16jSo_Z");
+function Info(){
+  window.open("https://editor.p5js.org/manas__1404/full/jEAAbHEnD");
+}
+
+function Rhythm(){ idk=window.open("https://editor.p5js.org/camelia02/full/Bo16jSo_Z");
 }
 
 function Tracing(){
