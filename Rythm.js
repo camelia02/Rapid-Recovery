@@ -295,7 +295,7 @@ function star(x, y, radius1, radius2) {
 }
 
 function gotolink_home(){
-  window.open('https://editor.p5js.org/manas__1404/sketches/48Gid6pnb')
+  window.open('https://editor.p5js.org/manas__1404/full/48Gid6pnb')
 }
 
 function gotolink_info(){
