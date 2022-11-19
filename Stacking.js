@@ -2,11 +2,17 @@ let bg;
 let coinStorage = [];
 let coinNum = 10;
 let index;
+let numberList = [];
 
 let widthc = 80;
 let heightc = 20;
 let numc = 0;
-let map = new Map();
+
+let reX;
+let reY;
+let reW;
+let reH;
+let recs = [];
 
 function setup() {
   // background size
@@ -49,14 +55,39 @@ function setup() {
   home = createButton('home');
   home.position(960);
   home.position(900, 10);
-  home.mousePressed(gotolink_act1);  
+  home.mousePressed(goHome);  
   
   information = createButton('information');
   information.position(868, 35);
-  information.mousePressed(gotolink_info)
+  information.mousePressed(goInfo);
   
   retry = createButton('retry');
   retry.position(908, 60);
+}
+
+function draw() { 
+  //background
+  background(bg);
+  //console.log(mouseX + " " + mouseY);
+  //text 1~10 
+  textPlaceCoin();
+  //rect 1~10
+  sqToPutIn();
+  
+  //display 10 coin
+  for (let i = 0; i < 10; i++) {
+    let coin = coinStorage[i];
+    coin.displayCoin();
+    
+    for(let j = i+1; j < 10; j++){
+    if(i != j){
+    coinStorage[i].collisionChecker(coinStorage[j]);
+    }
+      
+  }
+  }
+  //score
+  score();
 }
 
 class Coin{
@@ -88,10 +119,25 @@ class Coin{
     textStyle(BOLD);
     text(this.num, this.x-4, this.y +25.5);  
   }
+  
+  //check that it is not overlapping with any existing coins
+  //a brute force method
+  //very clunky need to fix this part
+  collisionChecker(other){
+    const dX = abs(this.x - other.x);
+    const dY = abs(this.y - other.y);
+    if(dX <= 85 && dY <= 45){
+      // this.x -= 5;
+      // this.y -= 5;
+      other.x += 5;
+      other.y += 5;
+      other.locked = true;
+    }
+  }
 }
 
+//Numbers related functions below
 //coin random number
-let numberList = [];
 function rNum(min, max) {
     let n;
     for (let i = 0; i < 10; i++) {
@@ -111,23 +157,15 @@ function sameNum(n) {
     return numberList.find((e) => (e === n));
 }
 
-function mousePressed(){
-    // let index=0;
-  // for(let i=0; i<coinStorage.length; i++){
-  //   let d = dist(mouseX, mouseY, coinStorage[i].x, coinStorage[i].y);
-  //   if(d<50){
-  //     index = i;
-  //   }
-  // }
-  // coinStorage[index].x = mouseX;
-  // coinStorage[index].y = mouseY;
-  
+//All mouse functions are below
+function mousePressed(){  
   for(let i=0; i<coinStorage.length; i++){
-    let d = dist(mouseX, mouseY, coinStorage[i].x, coinStorage[i].y);
-    if(d<50){
+    //let d = dist(mouseX, mouseY, coinStorage[i].x, coinStorage[i].y);
+    const dx = abs(coinStorage[i].x - mouseX);
+    const dy = abs(coinStorage[i].y + 20 - mouseY);
+    if(dx < 80 && dy < 40 ){
       coinStorage[i].locked = false;
       index = i;
-      console.log(i);
     }
     else{
       coinStorage[i].locked = true;
@@ -147,7 +185,6 @@ function mouseDragged(){
       coin.y = mouseY;
     }
   });
-  
 }
 
 //*****if coin is in correct place
@@ -160,14 +197,15 @@ function incorrectPlace(){
   incorrectSound.play();
 }
 
+//Achievements related functions below
 //score function
 function score(){
   let scr = 0;
-  textSize(46);
+  textSize(40);
   fill("white");
-  stroke("black");
-  strokeWeight(2.5);
-  text(scr, 527, 673);
+  stroke("green");
+  strokeWeight(8);
+  text(scr, 527, 671);
 }
 
 //color change
@@ -183,21 +221,7 @@ function colorChange(){
   
 }
 
-//restart
-function restart(){
-  
-}
-
-function setLineDash(list) {
-  // dashline
-  drawingContext.setLineDash(list);
-}
-
-let reX;
-let reY;
-let reW;
-let reH;
-
+//Boxes related functions below
 //square box to place the coin
 function sqToPutIn(){
   fill("black");
@@ -210,11 +234,11 @@ function sqToPutIn(){
   reW = 110;
   reH = 48.5;
   
-  map.set(rect(reX,reY,reW,reH), 1);
-  map.set(rect(reX,reY+63,reW,reH), 2);
-  map.set(rect(reX,reY+126,reW,reH), 3);
-  map.set(rect(reX,reY+189,reW,reH), 4);
-  map.set(rect(reX,reY+252,reW,reH), 5);
+  recs[0] = rect(reX,reY,reW,reH);
+  recs[1] = rect(reX,reY+63,reW,reH);
+  recs[2] = rect(reX,reY+126,reW,reH);
+  recs[3] = rect(reX,reY+189,reW,reH);
+  recs[4] = rect(reX,reY+252,reW,reH);
   
   //6~10
   reX = 625;
@@ -222,11 +246,11 @@ function sqToPutIn(){
   reW = 110;
   reH = 48.5;
   
-  map.set(rect(reX,reY,reW,reH), 6);
-  map.set(rect(reX,reY+63,reW,reH), 7);
-  map.set(rect(reX,reY+126,reW,reH), 8);
-  map.set(rect(reX,reY+189,reW,reH), 9);
-  map.set(rect(reX,reY+252,reW,reH), 10);  
+  recs[5] = rect(reX,reY,reW,reH);
+  recs[6] = rect(reX,reY+63,reW,reH);
+  recs[7] = rect(reX,reY+126,reW,reH);
+  recs[8] = rect(reX,reY+189,reW,reH);
+  recs[9] = rect(reX,reY+252,reW,reH);  
   
 }
 
@@ -257,30 +281,22 @@ function textPlaceCoin(){
   }
 }
 
+//restart
+function restart(){
+  
+}
+
+function setLineDash(list) {
+  // dashline
+  drawingContext.setLineDash(list);
+}
+
 //link
-function gotolink_act1(){
+function goHome(){
   window.open('https://editor.p5js.org/manas__1404/full/48Gid6pnb')
 }
 
-function gotolink_info(){
+//link
+function goInfo(){
   window.open("https://editor.p5js.org/manas__1404/full/3ZApe30pw")
 }
-
-function draw() { 
-  //background
-  background(bg);
-
-  //text 1~10 
-  textPlaceCoin();
-  //rect 1~10
-  sqToPutIn();
-  
-  //display 10 coin
-  for (let i = 0; i < 10; i++) {
-    coinStorage[i].displayCoin();
-  }
-  
-  //score
-  score();
-}
-
