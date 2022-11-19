@@ -22,9 +22,11 @@ let recFill5 = "black";
 let recFill6 = "black";
 let recFill7 = "black";
 let recFill8 = "black";
-let recFill9= "black";
+let recFill9 = "black";
 let recFill10 = "black";
 
+//make box change to red when placed coin incorrectly (either wrong coin or not within box)
+//make restart function
 
 function setup() {
   // background size
@@ -99,7 +101,7 @@ function draw() {
   }
   }
   //score
-  score();
+  score();
   correctPlace();
 }
 
@@ -142,13 +144,19 @@ class Coin{
     const dX = abs(this.x - other.x);
     const dY = abs(this.y - other.y);
     if(dX <= 85 && dY <= 45){
-      // this.x -= 5;
-      // this.y -= 5;
+      if(!this.locked){
+      this.x -= 5;
+      this.y -= 5;
+      }
+      if(!other.locked){
       other.x += 5;
       other.y += 5;
       other.locked = true;
+      }
     }
   }
+  
+  
 }
 
 //Numbers related functions below
@@ -210,25 +218,190 @@ function correctPlace(){
   // reY = 140;
   // reW = 110;
   // reH = 48.5;
-    if(!coin.correct){
+  if(!coin.correct){
+    //x: 330 -> 440
     let leftPos = coin.x < 410 && coin.x > 370;
-    if(coin.num == 1 && leftPos && coin.y > 400 && coin.y < 410){
-    sc += 10;
-    correctSound.play();
-    coin.locked = true;
-    coin.correct = true;
+    //x: 625 -> 735
+    let rightPos = coin.x < 695 && coin.x > 655;
     
-    }
+    //Starting from bottom row
+    //y: 390 -> 440
+    let firstRow = coin.y > 400 && coin.y < 410;
+    //y: 325 -> 375
+    let secondRow = coin.y > 335 && coin.y <345;
+    //y: 265 -> 315
+    let thirdRow = coin.y > 275 && coin.y < 285;
+    //y: 200 -> 250
+    let fourthRow = coin.y > 210 && coin.y < 220;
+    //y: 140 -> 190
+    let fifthRow = coin.y > 150 && coin.y < 160;
     
-    }
-    if(coin.num == 1 && coin.interact){
+    //Bow: 1 to 5
+    if(coin.num == 1 && leftPos && firstRow){
+      sc += 10;
+      //correctSound.play();
+      coin.locked = true;
+      coin.correct = true;
+      coin.x = 385;
+      coin.y = 407;
       if(coin.correct){
         recFill1 = "#7cdebf";
       }
       else{
-      recFill1 = "#e02d5a";
+        recFill1 = "#e02d5a";
+      }
     }
+  
+    
+    if(coin.num == 2 && leftPos && secondRow){
+      sc += 10;
+      //correctSound.play();
+      coin.locked = true;
+      coin.correct = true;
+      coin.x = 385;
+      coin.y = 342;
+        if(coin.correct){
+        recFill2 = "#7cdebf";
+      }
+      else{
+        recFill2 = "#e02d5a";
+      }
     }
+    
+    if(coin.num == 3 && leftPos && thirdRow){
+      sc += 10;
+      //correctSound.play();
+      coin.locked = true;
+      coin.correct = true;
+      coin.x = 385;
+      coin.y = 282;
+      if(coin.correct){
+        recFill3 = "#7cdebf";
+      }
+      else{
+        recFill3 = "#e02d5a";
+      }     
+    }
+    
+    if(coin.num == 4 && leftPos && fourthRow){
+      sc += 10;
+      //correctSound.play();
+      coin.locked = true;
+      coin.correct = true;
+      coin.x = 385;
+      coin.y = 217;
+      if(coin.correct){
+        recFill4 = "#7cdebf";
+      }
+      else{
+        recFill4 = "#e02d5a";
+      }
+    }
+    
+    if(coin.num == 5 && leftPos && fifthRow){
+      sc += 10;
+      //correctSound.play();
+      coin.locked = true;
+      coin.correct = true;
+      coin.x = 385;
+      coin.y = 157;
+      if(coin.correct){
+        recFill5 = "#7cdebf";
+      }
+      else{
+        recFill5 = "#e02d5a";
+      }
+    }
+    
+    //Bow: 6 to 10
+    if(coin.num == 6 && rightPos && firstRow){
+      sc += 10;
+      //correctSound.play();
+      coin.locked = true;
+      coin.correct = true;
+      coin.x = 680;
+      coin.y = 407;
+      if(coin.correct){
+        recFill6 = "#7cdebf";
+      }
+      else{
+        recFill6 = "#e02d5a";
+      }
+    }
+    
+    if(coin.num == 7 && rightPos && secondRow){
+      sc += 10;
+      //correctSound.play();
+      coin.locked = true;
+      coin.correct = true;
+      coin.x = 680;
+      coin.y = 342;
+      if(coin.correct){
+        recFill7 = "#7cdebf";
+      }
+      else{
+        recFill7 = "#e02d5a";
+      }
+    }
+    
+    if(coin.num == 8 && rightPos && thirdRow){
+      sc += 10;
+      //correctSound.play();
+      coin.locked = true;
+      coin.correct = true;
+      coin.x = 680;
+      coin.y = 282;
+      if(coin.correct){
+        recFill8 = "#7cdebf";
+      }
+      else{
+        recFill8 = "#e02d5a";
+      }
+    }
+    
+    if(coin.num == 9 && rightPos && fourthRow){
+      sc += 10;
+      //correctSound.play();
+      coin.locked = true;
+      coin.correct = true;
+      coin.x = 680;
+      coin.y = 217;
+      if(coin.correct){
+        recFill9 = "#7cdebf";
+      }
+      else{
+        recFill9 = "#e02d5a";
+      }
+    }
+    
+    if(coin.num == 10 && rightPos && fifthRow){
+      sc += 10;
+      //correctSound.play();
+      coin.locked = true;
+      coin.correct = true;
+      coin.x = 680;
+      coin.y = 157;
+        if(coin.correct){
+        recFill10 = "#7cdebf";
+      }
+      else{
+        recFill10 = "#e02d5a";
+      }
+    }
+    
+    
+    
+    
+  }
+    
+//     if(coin.num == 1 && coin.interact){
+//       if(coin.correct){
+//         recFill1 = "#7cdebf";
+//       }
+//       else{
+//       recFill1 = "#e02d5a";
+//       }
+//     }
   });
 }
 
