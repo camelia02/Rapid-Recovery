@@ -7,12 +7,24 @@ let numberList = [];
 let widthc = 80;
 let heightc = 20;
 let numc = 0;
+let sc = 0;
 
 let reX;
 let reY;
 let reW;
 let reH;
 let recs = [];
+let recFill1 = "black";
+let recFill2 = "black";
+let recFill3 = "black";
+let recFill4 = "black";
+let recFill5 = "black";
+let recFill6 = "black";
+let recFill7 = "black";
+let recFill8 = "black";
+let recFill9= "black";
+let recFill10 = "black";
+
 
 function setup() {
   // background size
@@ -68,7 +80,7 @@ function setup() {
 function draw() { 
   //background
   background(bg);
-  //console.log(mouseX + " " + mouseY);
+  console.log(mouseX + " " + mouseY);
   //text 1~10 
   textPlaceCoin();
   //rect 1~10
@@ -88,6 +100,7 @@ function draw() {
   }
   //score
   score();
+  correctPlace();
 }
 
 class Coin{
@@ -98,6 +111,8 @@ class Coin{
     this.height = h;
     this.num = rNum(0, 10);
     this.locked = true;
+    this.correct = false;
+    this.interact = false;
   }
   // coin display setting
   displayCoin(){
@@ -166,6 +181,7 @@ function mousePressed(){
     if(dx < 80 && dy < 40 ){
       coinStorage[i].locked = false;
       index = i;
+      coinStorage[i].interact = true;
     }
     else{
       coinStorage[i].locked = true;
@@ -180,7 +196,7 @@ function mouseReleased(){
 //*****mouse function
 function mouseDragged(){  
     coinStorage.forEach(coin => {
-    if(!coin.locked){
+    if(!coin.locked && !coin.correct){
       coin.x = mouseX;
       coin.y = mouseY;
     }
@@ -189,18 +205,42 @@ function mouseDragged(){
 
 //*****if coin is in correct place
 function correctPlace(){
-  correctSound.play();
+  coinStorage.forEach(coin => {
+  // reX = 330;
+  // reY = 140;
+  // reW = 110;
+  // reH = 48.5;
+    if(!coin.correct){
+    let leftPos = coin.x < 410 && coin.x > 370;
+    if(coin.num == 1 && leftPos && coin.y > 400 && coin.y < 410){
+    sc += 10;
+    correctSound.play();
+    coin.locked = true;
+    coin.correct = true;
+    
+    }
+    
+    }
+    if(coin.num == 1 && coin.interact){
+      if(coin.correct){
+        recFill1 = "#7cdebf";
+      }
+      else{
+      recFill1 = "#e02d5a";
+    }
+    }
+  });
 }
 
 //*****if coin is in incorrect place
 function incorrectPlace(){
-  incorrectSound.play();
+  //incorrectSound.play();
 }
 
 //Achievements related functions below
 //score function
 function score(){
-  let scr = 0;
+  let scr = sc;
   textSize(40);
   fill("white");
   stroke("green");
@@ -208,20 +248,20 @@ function score(){
   text(scr, 527, 671);
 }
 
-//color change
-function colorChange(){
-  for(let i=0; i<coinStorage.length; i++){
-    if(coinStorage[i].correctPlace){
-      fill("#7cdebf");
-    }
-    else if(coinStorage[i].incorrectPlace){
-      fill("#e02d5a");
-    }
-  }
+// //color change
+// function colorChange(){
   
-}
+//     if(correctPlace()){
+//      recFill1 = "#7cdebf";
+//     }
+//     else if(incorrectPlace()){
+//     recFill = "#e02d5a";
+//     }
+  
+  
+// }
 
-//Boxes related functions below
+//Boxes rgb(244,57,57)ed functions below
 //square box to place the coin
 function sqToPutIn(){
   fill("black");
@@ -234,10 +274,15 @@ function sqToPutIn(){
   reW = 110;
   reH = 48.5;
   
+  fill(recFill5);
   recs[0] = rect(reX,reY,reW,reH);
+  fill(recFill4);
   recs[1] = rect(reX,reY+63,reW,reH);
+  fill(recFill3);
   recs[2] = rect(reX,reY+126,reW,reH);
+  fill(recFill2);
   recs[3] = rect(reX,reY+189,reW,reH);
+  fill(recFill1);
   recs[4] = rect(reX,reY+252,reW,reH);
   
   //6~10
@@ -246,10 +291,15 @@ function sqToPutIn(){
   reW = 110;
   reH = 48.5;
   
+  fill(recFill10);
   recs[5] = rect(reX,reY,reW,reH);
+  fill(recFill9);
   recs[6] = rect(reX,reY+63,reW,reH);
+  fill(recFill8);
   recs[7] = rect(reX,reY+126,reW,reH);
+  fill(recFill7);
   recs[8] = rect(reX,reY+189,reW,reH);
+  fill(recFill6);
   recs[9] = rect(reX,reY+252,reW,reH);  
   
 }
