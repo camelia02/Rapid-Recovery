@@ -25,8 +25,6 @@ let recFill8 = "black";
 let recFill9 = "black";
 let recFill10 = "black";
 
-//make box change to red when placed coin incorrectly (either wrong coin or not within box)
-//make restart function
 
 function setup() {
   // background size
@@ -95,7 +93,7 @@ function draw() {
     
     for(let j = i+1; j < 10; j++){
     if(i != j){
-    coinStorage[i].collisionChecker(coinStorage[j]);
+    coin.collisionChecker(coinStorage[j]);
     }
       
   }
@@ -143,16 +141,17 @@ class Coin{
   collisionChecker(other){
     const dX = abs(this.x - other.x);
     const dY = abs(this.y - other.y);
-    if(dX <= 85 && dY <= 45){
+    if(dX <= 80 && dY <= 40){
       if(!this.locked){
-      this.x -= 5;
-      this.y -= 5;
+      this.x -= 20;
+      this.y -= 10;
+      this.locked = false;
       }
-      if(!other.locked){
-      other.x += 5;
-      other.y += 5;
-      other.locked = true;
+      if(!other.correct){
+      other.x += 20;
+      other.y += 10;
       }
+      
     }
   }
   
@@ -182,13 +181,13 @@ function sameNum(n) {
 
 //All mouse functions are below
 function mousePressed(){  
+  
   for(let i=0; i<coinStorage.length; i++){
     //let d = dist(mouseX, mouseY, coinStorage[i].x, coinStorage[i].y);
     const dx = abs(coinStorage[i].x - mouseX);
     const dy = abs(coinStorage[i].y + 20 - mouseY);
     if(dx < 80 && dy < 40 ){
       coinStorage[i].locked = false;
-      index = i;
       coinStorage[i].interact = true;
     }
     else{
@@ -198,7 +197,9 @@ function mousePressed(){
 }
 
 function mouseReleased(){
-  coinStorage[index].locked = true;
+  for(let i = 0; i < coinStorage.length; i++){
+  coinStorage[i].locked = true;
+  }
 }
 
 //*****mouse function
@@ -259,7 +260,7 @@ function correctPlace(){
       coin.locked = true;
       coin.correct = true;
       coin.x = 385;
-      coin.y = 342;
+      coin.y = 343;
         if(coin.correct){
         recFill2 = "#7cdebf";
       }
@@ -304,7 +305,7 @@ function correctPlace(){
       coin.locked = true;
       coin.correct = true;
       coin.x = 385;
-      coin.y = 157;
+      coin.y = 155;
       if(coin.correct){
         recFill5 = "#7cdebf";
       }
@@ -335,7 +336,7 @@ function correctPlace(){
       coin.locked = true;
       coin.correct = true;
       coin.x = 680;
-      coin.y = 342;
+      coin.y = 343;
       if(coin.correct){
         recFill7 = "#7cdebf";
       }
@@ -380,7 +381,7 @@ function correctPlace(){
       coin.locked = true;
       coin.correct = true;
       coin.x = 680;
-      coin.y = 157;
+      coin.y = 155;
         if(coin.correct){
         recFill10 = "#7cdebf";
       }
