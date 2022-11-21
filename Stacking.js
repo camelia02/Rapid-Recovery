@@ -237,10 +237,6 @@ function mouseDragged(){
 //*****if coin is in correct place
 function correctPlace(){
   coinStorage.forEach(coin => {
-  // reX = 330;
-  // reY = 140;
-  // reW = 110;
-  // reH = 48.5;
   if(!coin.correct){
     //x: 330 -> 440
     let leftPos = coin.x < 410 && coin.x > 370;
@@ -269,12 +265,12 @@ function correctPlace(){
       coin.y = 407;
       if(coin.correct){
         recFill1 = "#7cdebf";
+        correctSound.play();
       }
       else{
         recFill1 = "#e02d5a";
       }
     }
-  
     
     if(coin.num == 2 && leftPos && secondRow){
       sc += 10;
@@ -285,6 +281,7 @@ function correctPlace(){
       coin.y = 343;
         if(coin.correct){
         recFill2 = "#7cdebf";
+        correctSound.play();
       }
       else{
         recFill2 = "#e02d5a";
@@ -300,6 +297,7 @@ function correctPlace(){
       coin.y = 282;
       if(coin.correct){
         recFill3 = "#7cdebf";
+        correctSound.play();
       }
       else{
         recFill3 = "#e02d5a";
@@ -315,9 +313,10 @@ function correctPlace(){
       coin.y = 217;
       if(coin.correct){
         recFill4 = "#7cdebf";
+        correctSound.play();
       }
       else{
-        recFill4 = "#e02d5a";
+        recFill4 = "red";
       }
     }
     
@@ -330,6 +329,7 @@ function correctPlace(){
       coin.y = 155;
       if(coin.correct){
         recFill5 = "#7cdebf";
+        correctSound.play();
       }
       else{
         recFill5 = "#e02d5a";
@@ -346,6 +346,7 @@ function correctPlace(){
       coin.y = 407;
       if(coin.correct){
         recFill6 = "#7cdebf";
+        correctSound.play();
       }
       else{
         recFill6 = "#e02d5a";
@@ -361,6 +362,7 @@ function correctPlace(){
       coin.y = 343;
       if(coin.correct){
         recFill7 = "#7cdebf";
+        correctSound.play();
       }
       else{
         recFill7 = "#e02d5a";
@@ -376,6 +378,7 @@ function correctPlace(){
       coin.y = 282;
       if(coin.correct){
         recFill8 = "#7cdebf";
+        correctSound.play();
       }
       else{
         recFill8 = "#e02d5a";
@@ -391,6 +394,7 @@ function correctPlace(){
       coin.y = 217;
       if(coin.correct){
         recFill9 = "#7cdebf";
+        correctSound.play();
       }
       else{
         recFill9 = "#e02d5a";
@@ -406,14 +410,12 @@ function correctPlace(){
       coin.y = 155;
         if(coin.correct){
         recFill10 = "#7cdebf";
+        correctSound.play();
       }
       else{
         recFill10 = "#e02d5a";
       }
     }
-    
-    
-    
     
   }
     
