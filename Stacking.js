@@ -80,7 +80,7 @@ function setup() {
 function draw() { 
   //background
   background(bg);
-  console.log(mouseX + " " + mouseY);
+  //console.log(mouseX + " " + mouseY);
   //text 1~10 
   textPlaceCoin();
   //rect 1~10
@@ -143,13 +143,35 @@ class Coin{
     const dY = abs(this.y - other.y);
     if(dX <= 80 && dY <= 40){
       if(!this.locked){
-      this.x -= 20;
-      this.y -= 10;
-      this.locked = false;
+        if(this.x > other.x){
+          this.x += 10
+        }
+        else{
+        this.x -= 10;
+          }
+        if(this.y > other.y){
+        this.y += 5;
+          }
+        else{
+          this.y -= 5;
+        }
       }
+      
+      //not in box
       if(!other.correct){
-      other.x += 20;
-      other.y += 10;
+        
+      if(this.x > other.x){
+          other.x -= 10
+        }
+        else{
+        other.x += 10;
+          }
+        if(this.y > other.y){
+        other.y -= 5;
+          }
+        else{
+          other.y += 5;
+        }
       }
       
     }
