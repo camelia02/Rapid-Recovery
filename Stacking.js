@@ -92,11 +92,10 @@ function draw() {
     coin.displayCoin();
     
     for(let j = i+1; j < 10; j++){
-    if(i != j){
-    coin.collisionChecker(coinStorage[j]);
+      if(i != j){
+      coin.collisionChecker(coinStorage[j]);
+      }
     }
-      
-  }
   }
   //score
   score();
@@ -173,11 +172,8 @@ class Coin{
           other.y += 5;
         }
       }
-      
     }
   }
-  
-  
 }
 
 //Numbers related functions below
@@ -237,10 +233,6 @@ function mouseDragged(){
 //*****if coin is in correct place
 function correctPlace(){
   coinStorage.forEach(coin => {
-  // reX = 330;
-  // reY = 140;
-  // reW = 110;
-  // reH = 48.5;
   if(!coin.correct){
     //x: 330 -> 440
     let leftPos = coin.x < 410 && coin.x > 370;
@@ -262,29 +254,28 @@ function correctPlace(){
     //Bow: 1 to 5
     if(coin.num == 1 && leftPos && firstRow){
       sc += 10;
-      //correctSound.play();
       coin.locked = true;
       coin.correct = true;
       coin.x = 385;
       coin.y = 407;
       if(coin.correct){
         recFill1 = "#7cdebf";
+        correctSound.play();
       }
       else{
         recFill1 = "#e02d5a";
       }
     }
-  
     
     if(coin.num == 2 && leftPos && secondRow){
       sc += 10;
-      //correctSound.play();
       coin.locked = true;
       coin.correct = true;
       coin.x = 385;
       coin.y = 343;
         if(coin.correct){
         recFill2 = "#7cdebf";
+        correctSound.play();
       }
       else{
         recFill2 = "#e02d5a";
@@ -293,13 +284,13 @@ function correctPlace(){
     
     if(coin.num == 3 && leftPos && thirdRow){
       sc += 10;
-      //correctSound.play();
       coin.locked = true;
       coin.correct = true;
       coin.x = 385;
       coin.y = 282;
       if(coin.correct){
         recFill3 = "#7cdebf";
+        correctSound.play();
       }
       else{
         recFill3 = "#e02d5a";
@@ -308,16 +299,16 @@ function correctPlace(){
     
     if(coin.num == 4 && leftPos && fourthRow){
       sc += 10;
-      //correctSound.play();
       coin.locked = true;
       coin.correct = true;
       coin.x = 385;
       coin.y = 217;
       if(coin.correct){
         recFill4 = "#7cdebf";
+        correctSound.play();
       }
       else{
-        recFill4 = "#e02d5a";
+        recFill4 = "red";
       }
     }
     
@@ -330,6 +321,7 @@ function correctPlace(){
       coin.y = 155;
       if(coin.correct){
         recFill5 = "#7cdebf";
+        correctSound.play();
       }
       else{
         recFill5 = "#e02d5a";
@@ -339,13 +331,13 @@ function correctPlace(){
     //Bow: 6 to 10
     if(coin.num == 6 && rightPos && firstRow){
       sc += 10;
-      //correctSound.play();
       coin.locked = true;
       coin.correct = true;
       coin.x = 680;
       coin.y = 407;
       if(coin.correct){
         recFill6 = "#7cdebf";
+        correctSound.play();
       }
       else{
         recFill6 = "#e02d5a";
@@ -354,13 +346,13 @@ function correctPlace(){
     
     if(coin.num == 7 && rightPos && secondRow){
       sc += 10;
-      //correctSound.play();
       coin.locked = true;
       coin.correct = true;
       coin.x = 680;
       coin.y = 343;
       if(coin.correct){
         recFill7 = "#7cdebf";
+        correctSound.play();
       }
       else{
         recFill7 = "#e02d5a";
@@ -369,13 +361,13 @@ function correctPlace(){
     
     if(coin.num == 8 && rightPos && thirdRow){
       sc += 10;
-      //correctSound.play();
       coin.locked = true;
       coin.correct = true;
       coin.x = 680;
       coin.y = 282;
       if(coin.correct){
         recFill8 = "#7cdebf";
+        correctSound.play();
       }
       else{
         recFill8 = "#e02d5a";
@@ -384,13 +376,13 @@ function correctPlace(){
     
     if(coin.num == 9 && rightPos && fourthRow){
       sc += 10;
-      //correctSound.play();
       coin.locked = true;
       coin.correct = true;
       coin.x = 680;
       coin.y = 217;
       if(coin.correct){
         recFill9 = "#7cdebf";
+        correctSound.play();
       }
       else{
         recFill9 = "#e02d5a";
@@ -399,32 +391,19 @@ function correctPlace(){
     
     if(coin.num == 10 && rightPos && fifthRow){
       sc += 10;
-      //correctSound.play();
       coin.locked = true;
       coin.correct = true;
       coin.x = 680;
       coin.y = 155;
-        if(coin.correct){
+      if(coin.correct){
         recFill10 = "#7cdebf";
+        correctSound.play();
       }
       else{
-        recFill10 = "#e02d5a";
+        recFill10 = "red";
       }
     }
-    
-    
-    
-    
   }
-    
-//     if(coin.num == 1 && coin.interact){
-//       if(coin.correct){
-//         recFill1 = "#7cdebf";
-//       }
-//       else{
-//       recFill1 = "#e02d5a";
-//       }
-//     }
   });
 }
 
@@ -435,27 +414,15 @@ function incorrectPlace(){
 
 //Achievements related functions below
 //score function
+let scr;
 function score(){
-  let scr = sc;
+  scr = sc;
   textSize(40);
   fill("white");
   stroke("green");
   strokeWeight(8);
   text(scr, 527, 671);
 }
-
-// //color change
-// function colorChange(){
-  
-//     if(correctPlace()){
-//      recFill1 = "#7cdebf";
-//     }
-//     else if(incorrectPlace()){
-//     recFill = "#e02d5a";
-//     }
-  
-  
-// }
 
 //Boxes rgb(244,57,57)ed functions below
 //square box to place the coin
@@ -529,6 +496,7 @@ function textPlaceCoin(){
 
 //restart
 function restart(){
+  scr=0;
   
 }
 
