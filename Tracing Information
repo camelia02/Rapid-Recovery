@@ -1,7 +1,7 @@
 var pic_s;
 
 function preload(){
-  pic_t=loadImage("Information -Tracing game.png");
+  pic_t=loadImage("Tracing game Info.jpeg");
 }
 
 function setup() {
@@ -11,7 +11,7 @@ function setup() {
   //c
   home = createButton('back');
   home.position(960);
-  home.position(915, 6);
+  home.position(910, 6);
   home.mousePressed(gotolink_act1); 
 
 }
