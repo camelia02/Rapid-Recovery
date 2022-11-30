@@ -1,4 +1,3 @@
-//
 //Score
 let width = 960;
 let height = 720;
@@ -18,6 +17,7 @@ let inButton = false;
 let onBeat = false;
 let missedBeat = false;
 let st = false;
+let end = false;
 let gm = false;
 
 //Background
@@ -28,6 +28,7 @@ let pl;
 let cg;
 let home;
 let information;
+let retry;
 
 function preload(){
   //add bg, noise feedback, and music
@@ -35,7 +36,6 @@ function preload(){
   sickBeat = loadSound('fse100.mp3');
   pl = new Beat(480,360, inDia, inDia, "Start", balls);
   cg = loadSound('accurate.wav');
-
 }
 
 function setup() {
@@ -46,33 +46,51 @@ function setup() {
   home.mousePressed(gotolink_home);  
   information = createButton('information');
   information.position(868, 35);
-  // link below
   information.mousePressed(gotolink_info);
+  retry = createButton('retry');
+  retry.position(908, 60);
+  retry.mousePressed(gotolink_rhythm);
 }
 
-function draw(){
-    image(bg,0,0);   
-  
-    pl.display();
+function playAgain(){
+  score = 0;
+  sickBeat.pause();
+  gm = false;
+  st = false;
+  deleteArray();
+  preload();
+}
+
+function starting(){
+  if(!gm){
+   pl.display();
     overCircle(pl);
       if(mouseIsPressed && inButton){
       st = true; 
       pl.disappear();
       }
-  
-      if(gm){
+    }
+      else{
         playing();
       }
-      
-      
+  
+  if(!sickBeat.isPlaying() && gm){
+    endScreen();
+  }
   achievement();
+}
+
+function draw(){
+    image(bg,0,0);   
+
+    starting();
 
 }
 
 //after n second add new value to array
 //dynamic array
 function createArray(){
-  for(let i = 0; i<numBalls; i++){
+  for(let i = 0; i < numBalls; i++){
     if(i > 0){
     createBeat(i);
     }
@@ -87,6 +105,13 @@ function createBeat(n){
     let cordinate = randCor();
     balls[n] = new Beat(cordinate[0],cordinate[1], inDia, outDia, n+1, balls);
    }, (n+1)*ms);
+}
+
+function deleteArray(){
+  balls.forEach(ball =>{
+    ball.disappear();
+  });
+  balls.length = 0;
 }
 
 function randCor(){
@@ -154,6 +179,8 @@ function mouseClicked(){
         ball.disappear();
         ball.locked = true;
         
+        //if
+        
       }
     }
   });
@@ -200,9 +227,35 @@ function Breward(){
     score += 2;
 }
 
+function endScreen(){
+  let message = "";
+    if(score > 0){
+    message = "  CONGRATULATIONS!\n   YOU'RE A STAR!\n   Click On 'retry'\n   To Play Again";
+    stroke(5);
+    stroke("rgb(111,119,128)");
+    fill("rgb(240,170,255)");
+    rect(165, 145, 600, 400);
+    textSize(55);
+    stroke("rgb(29,29,29)");
+    fill("white");
+    text(message, 445, 255);
+    }
+    else{
+    message = "   Don't give up!\n   Click on 'retry' \n  to test your skill\n   again!";
+    stroke(5);
+    stroke("rgb(143,59,174)");
+    fill("rgb(225,213,231)");
+    rect(165, 145, 600, 400);
+    textSize(70);
+    stroke("rgb(29,29,29)");
+    fill("white");
+    text(message, 430, 245);
+    }
+}
 
 function achievement(){
     fill("rgb(33,0,45)");
+    stroke("rgb(143,59,174)");
     rect(width/2 - 135,height - 100,270,60);
     fill(255);
     
@@ -300,4 +353,8 @@ function gotolink_home(){
 
 function gotolink_info(){
   window.open('https://editor.p5js.org/manas__1404/full/guxVqJXIh')
+}
+
+function gotolink_rhythm(){ 
+  window.location.reload("https://editor.p5js.org/camelia02/full/Bo16jSo_Z");
 }
