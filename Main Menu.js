@@ -30,17 +30,23 @@ function setup() {
   button5.style('font-size', '30px');
   button5.position(590, 525);
   
+  button6= createButton("CONTACT US");
+  button6.style("font-size",'25px')
+  button6.position(760,660);
+  
    
   button1.mousePressed(Rhythm);
   button2.mousePressed(Tracing);
   button3.mousePressed(Stacking);
   button4.mousePressed(Info);
   button5.mousePressed(exit);
+  button6.mousePressed(Contact);
+  
   
 }
 
 function exit(){
-  idk.close();
+  window.open("https://editor.p5js.org/kgong12/full/gzQTZk_yI");
 }
 
 function draw() {
@@ -51,6 +57,10 @@ function draw() {
 
 function Info(){
   window.open("https://editor.p5js.org/manas__1404/full/jEAAbHEnD");
+}
+
+function Contact(){
+  window.open("https://editor.p5js.org/manas__1404/full/WwFaLgMUa")
 }
 
 function Rhythm(){ idk=window.open("https://editor.p5js.org/camelia02/full/Bo16jSo_Z");
