@@ -8,12 +8,14 @@ let widthc = 80;
 let heightc = 20;
 let numc = 0;
 let sc = 0;
-/
+
 let reX;
 let reY;
 let reW;
 let reH;
 let recs = [];
+
+let recF = [];
 let recFill1 = "black";
 let recFill2 = "black";
 let recFill3 = "black";
@@ -36,7 +38,8 @@ function setup() {
   //sound
   soundFormats('wav');
   correctSound = loadSound('gsound.wav');
-  incorrectSound = loadSound('wsound.wav');
+  incorrectSound = loadSound('wsound1.mp3');
+  timerSound = loadSound('timer.wav');
   
   coinX = 280;
   coinY = 495;
@@ -75,7 +78,12 @@ function setup() {
   
   retry = createButton('retry');
   retry.position(908, 60);
+  retry.mousePressed(restart);
+
 }
+
+var timer = false;
+var t = 0;
 
 function draw() { 
   //background
@@ -93,10 +101,13 @@ function draw() {
     
     for(let j = i+1; j < 10; j++){
       if(i != j){
-      coin.collisionChecker(coinStorage[j]);
+        coin.collisionChecker(coinStorage[j]);
       }
     }
   }
+  //time
+  time();
+  
   //score
   score();
   correctPlace();
@@ -197,14 +208,69 @@ function sameNum(n) {
     return numberList.find((e) => (e === n));
 }
 
+function time(){
+  //timer
+  if (timer === true) {
+     t++;
+  }
+  
+  fill('white');
+  stroke('gray');
+  strokeWeight(10);
+  textSize(35);
+  text('Time', 773, 160);
+  textSize(30);
+  text((t/30).toFixed(1), 883, 160);
+
+  while(timer == false){
+    if(((t/30).toFixed(1))>=35){
+      fill('gray');
+      stroke('orange');
+      strokeWeight(5);
+      rect(200,212,600,400);
+      
+      fill('white');
+      stroke("red");
+      strokeWeight(5);
+      textSize(100);
+      text("Try again!!!", 235, 450);
+      
+      fill('purple');
+      stroke('white');
+      textSize(25);
+      text("Click on 'retry' to play again", 325, 290);
+      break;
+    }
+    else if( ((t/30).toFixed(1))<35 &&((t/30).toFixed(1))>1 ) {
+        fill('gray');
+        stroke('orange');
+        strokeWeight(5);
+        rect(200,212,600,400);
+      
+        fill('white');
+        stroke("red");
+        strokeWeight(5);
+        textSize(100);
+        text("Great!!!", 335, 450);
+
+        fill('purple');
+        stroke('white');
+        textSize(25);
+        text("Click on 'retry' to play again", 325, 290);
+        break;
+    }
+    else if(((t/30).toFixed(1))<=0){
+      break;
+    }
+  }
+}
+
 //All mouse functions are below
 function mousePressed(){  
-  
   for(let i=0; i<coinStorage.length; i++){
-    //let d = dist(mouseX, mouseY, coinStorage[i].x, coinStorage[i].y);
     const dx = abs(coinStorage[i].x - mouseX);
     const dy = abs(coinStorage[i].y + 20 - mouseY);
-    if(dx < 80 && dy < 40 ){
+    if(dx < 80 && dy < 40){
       coinStorage[i].locked = false;
       coinStorage[i].interact = true;
     }
@@ -216,18 +282,22 @@ function mousePressed(){
 
 function mouseReleased(){
   for(let i = 0; i < coinStorage.length; i++){
-  coinStorage[i].locked = true;
+    coinStorage[i].locked = true;
   }
 }
 
 //*****mouse function
+//*****mouse function
 function mouseDragged(){  
     coinStorage.forEach(coin => {
     if(!coin.locked && !coin.correct){
+      if(mouseX >= 40 && mouseY >= 10 && mouseX <= 920 && mouseY <= 710){
       coin.x = mouseX;
       coin.y = mouseY;
-    }
-  });
+      timer=true;
+    }
+    }
+  });
 }
 
 //*****if coin is in correct place
@@ -262,9 +332,6 @@ function correctPlace(){
         recFill1 = "#7cdebf";
         correctSound.play();
       }
-      else{
-        recFill1 = "#e02d5a";
-      }
     }
     
     if(coin.num == 2 && leftPos && secondRow){
@@ -273,12 +340,9 @@ function correctPlace(){
       coin.correct = true;
       coin.x = 385;
       coin.y = 343;
-        if(coin.correct){
+      if(coin.correct){
         recFill2 = "#7cdebf";
         correctSound.play();
-      }
-      else{
-        recFill2 = "#e02d5a";
       }
     }
     
@@ -291,10 +355,7 @@ function correctPlace(){
       if(coin.correct){
         recFill3 = "#7cdebf";
         correctSound.play();
-      }
-      else{
-        recFill3 = "#e02d5a";
-      }     
+      }  
     }
     
     if(coin.num == 4 && leftPos && fourthRow){
@@ -307,14 +368,10 @@ function correctPlace(){
         recFill4 = "#7cdebf";
         correctSound.play();
       }
-      else{
-        recFill4 = "red";
-      }
     }
     
     if(coin.num == 5 && leftPos && fifthRow){
       sc += 10;
-      //correctSound.play();
       coin.locked = true;
       coin.correct = true;
       coin.x = 385;
@@ -322,9 +379,6 @@ function correctPlace(){
       if(coin.correct){
         recFill5 = "#7cdebf";
         correctSound.play();
-      }
-      else{
-        recFill5 = "#e02d5a";
       }
     }
     
@@ -339,9 +393,6 @@ function correctPlace(){
         recFill6 = "#7cdebf";
         correctSound.play();
       }
-      else{
-        recFill6 = "#e02d5a";
-      }
     }
     
     if(coin.num == 7 && rightPos && secondRow){
@@ -353,9 +404,6 @@ function correctPlace(){
       if(coin.correct){
         recFill7 = "#7cdebf";
         correctSound.play();
-      }
-      else{
-        recFill7 = "#e02d5a";
       }
     }
     
@@ -369,9 +417,6 @@ function correctPlace(){
         recFill8 = "#7cdebf";
         correctSound.play();
       }
-      else{
-        recFill8 = "#e02d5a";
-      }
     }
     
     if(coin.num == 9 && rightPos && fourthRow){
@@ -383,9 +428,6 @@ function correctPlace(){
       if(coin.correct){
         recFill9 = "#7cdebf";
         correctSound.play();
-      }
-      else{
-        recFill9 = "#e02d5a";
       }
     }
     
@@ -399,17 +441,12 @@ function correctPlace(){
         recFill10 = "#7cdebf";
         correctSound.play();
       }
-      else{
-        recFill10 = "red";
-      }
+    }
+    if(timer==false && scr>0){
+      coin.locked = true;
     }
   }
   });
-}
-
-//*****if coin is in incorrect place
-function incorrectPlace(){
-  //incorrectSound.play();
 }
 
 //Achievements related functions below
@@ -422,6 +459,9 @@ function score(){
   stroke("green");
   strokeWeight(8);
   text(scr, 527, 671);
+  if(scr==100 || ((t/30).toFixed(1))>50){
+    timer=false;
+  }
 }
 
 //Boxes rgb(244,57,57)ed functions below
@@ -495,9 +535,7 @@ function textPlaceCoin(){
 }
 
 //restart
-function restart(){
-  scr=0;
-  
+function restart(){   window.location.reload('https://editor.p5js.org/kgong12/full/vx6mXN2r3')
 }
 
 function setLineDash(list) {
@@ -506,11 +544,10 @@ function setLineDash(list) {
 }
 
 //link
-function goHome(){
-  window.open('https://editor.p5js.org/manas__1404/full/48Gid6pnb')
+function goHome(){  window.open('https://editor.p5js.org/manas__1404/full/48Gid6pnb')
 }
 
 //link
 function goInfo(){
-  window.open("https://editor.p5js.org/manas__1404/full/3ZApe30pw")
+ window.open("https://editor.p5js.org/manas__1404/full/3ZApe30pw")
 }
