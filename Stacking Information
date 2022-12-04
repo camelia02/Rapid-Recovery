@@ -1,7 +1,7 @@
 var pic_s;
 
 function preload(){
-  pic_s=loadImage("Information - Stacking game.png");
+  pic_s=loadImage("Stacking game Info.jpeg");
 }
 
 function setup() {
@@ -11,7 +11,7 @@ function setup() {
   //c
   home = createButton('back');
   home.position(960);
-  home.position(915, 6);
+  home.position(910, 6);
   home.mousePressed(gotolink_act1); 
 
 }
