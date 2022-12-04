@@ -1,7 +1,7 @@
 var pic_r;
 
 function preload(){
-  pic_r=loadImage("Information - Rhythm game.png");
+  pic_r=loadImage("InfoRhythm.png");
 }
 
 function setup() {
@@ -9,9 +9,9 @@ function setup() {
   background(52, 161, 235);
   
   //c
-  home = createButton('home');
+  home = createButton('back');
   home.position(960);
-  home.position(900, 10);
+  home.position(910, 6);
   home.mousePressed(gotolink_act1); 
 
 }
