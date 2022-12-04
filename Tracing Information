@@ -1,7 +1,7 @@
 var pic_s;
 
 function preload(){
-  pic_t=loadImage("Tracing game Info.jpeg");
+  pic_t=loadImage("Tracing game.jpeg");
 }
 
 function setup() {
