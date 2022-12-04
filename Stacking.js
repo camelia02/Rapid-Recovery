@@ -8,7 +8,7 @@ let widthc = 80;
 let heightc = 20;
 let numc = 0;
 let sc = 0;
-
+/
 let reX;
 let reY;
 let reW;
